@@ -39,4 +39,5 @@ def test_trigram(trigram_key, trigram_value):
 def test_trigram_length(input_text, length):
     from trigrams import main
     result_text = main(input_text, length)
-    assert len(result_text.split(' ')) == length
+    result_list = result_text.split(' ')
+    assert len(result_list) == length

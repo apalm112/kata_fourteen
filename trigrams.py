@@ -42,17 +42,20 @@ def trigram(sherlock_string):
 
 
 def make_trigrams(trigram_dict, length):
-    key, words = random.choice(list(trigram_dict.items()))
-    trigram_sentence = ' '.join([key, random.choice(words)])
-    split_list = trigram_sentence.rsplit(' ', 2)
+    key = random.choice(list(trigram_dict.keys()))
+    output_list = key.split(' ')
+    while len(output_list) < length:
+        last_two = ' '.join([output_list[-2], output_list[-1]])
+        if last_two in trigram_dict:
+            new_word = random.choice(trigram_dict[last_two])
+            output_list.append(new_word)
 
-
-
-    return trigram_sentence
+    return ' '.join(output_list)
 
 
 if __name__ == '__main__':
     print(sys.argv)
     text_file = sys.argv[1]
-    length = sys.argv[2]
-    main(text_file, length)
+    length = int(sys.argv[2])
+    new_text = main(text_file, length)
+    print(new_text)
