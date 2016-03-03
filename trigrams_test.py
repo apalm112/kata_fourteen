@@ -18,6 +18,7 @@ TRIGRAM = [
 LENGTH = [
   ('sherlock_small.txt', 200),
   ('sherlock_small.txt', 100),
+  ('sherlock_small.txt', 50),
   ('sherlock_small.txt', 20),
   ('sherlock_small.txt', 3),
 ]

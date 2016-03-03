@@ -46,9 +46,10 @@ def make_trigrams(trigram_dict, length):
     output_list = key.split(' ')
     while len(output_list) < length:
         last_two = ' '.join([output_list[-2], output_list[-1]])
-        if last_two in trigram_dict:
-            new_word = random.choice(trigram_dict[last_two])
-            output_list.append(new_word)
+        if last_two not in trigram_dict:
+            last_two = random.choice(list(trigram_dict.keys()))
+        new_word = random.choice(trigram_dict[last_two])
+        output_list.append(new_word)
 
     return ' '.join(output_list)
 
