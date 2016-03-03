@@ -17,7 +17,9 @@ def main(text_file, length):
 def trigrams_input(input_file):
     """Function to input and read file."""
     sherlock = io.open(input_file)
-    return sherlock.read()
+    sherlock_text = sherlock.read()
+    sherlock.close()
+    return sherlock_text
 
 
 def trigram(sherlock_string):
