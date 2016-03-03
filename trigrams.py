@@ -1,4 +1,4 @@
-"""Docstring here."""
+"""Generate new text from given text using a trigram algorithm."""
 
 
 import io
@@ -7,7 +7,7 @@ import random
 
 
 def main(text_file, length):
-    """Docstring."""
+    """Return new text from given text file and length parameter."""
     text = trigrams_input(text_file)
     trigram_dict = trigram(text)
     new_text = make_trigrams(trigram_dict, length)
@@ -21,11 +21,8 @@ def trigrams_input(input_file):
 
 
 def trigram(sherlock_string):
-    """Docstring goes here."""
+    """Return dictionary of trigrams from given long string."""
     sherlock_list = sherlock_string.split()
-    # first_trigram_key = ' '.join(sherlock_list[:2])
-    # first_trigram_val = sherlock_list[2]
-    # trigram_dict = {first_trigram_key: first_trigram_val}
     trigram_dict = {}
 
     for index, current_word in enumerate(sherlock_list[:-1]):
@@ -35,13 +32,13 @@ def trigram(sherlock_string):
         trigram_key = ' '.join([previous_word, current_word])
         word_list = trigram_dict.setdefault(trigram_key, [])
         next_word = sherlock_list[index + 1]
-        # trigram_dict[' '.join([previous_word, current_word])] = [next_word]  # this does the same as line 23.
         word_list.append(next_word)
 
     return trigram_dict
 
 
 def make_trigrams(trigram_dict, length):
+    """Return a long string of new text assembled by trigrams."""
     key = random.choice(list(trigram_dict.keys()))
     output_list = key.split(' ')
     while len(output_list) < length:
@@ -55,8 +52,13 @@ def make_trigrams(trigram_dict, length):
 
 
 if __name__ == '__main__':
-    print(sys.argv)
+    if len(sys.arv) != 3:
+        print('Bad arguments given.')
+        return
     text_file = sys.argv[1]
     length = int(sys.argv[2])
+    if length < 3:
+        print('Given length argument must be 3 or larger.')
+        return
     new_text = main(text_file, length)
     print(new_text)

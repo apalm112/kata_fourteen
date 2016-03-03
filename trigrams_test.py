@@ -15,12 +15,20 @@ TRIGRAM = [
 ]
 
 
+DUMMY_DICT = {
+  'I wish': ['I', 'I'],
+  'wish I': ['may', 'might'],
+  'may I': ['wish'],
+  'I may': ['I']
+}
+
+
 LENGTH = [
-  ('sherlock_small.txt', 200),
-  ('sherlock_small.txt', 100),
-  ('sherlock_small.txt', 50),
-  ('sherlock_small.txt', 20),
-  ('sherlock_small.txt', 3),
+  (DUMMY_DICT, 200),
+  (DUMMY_DICT, 100),
+  (DUMMY_DICT, 50),
+  (DUMMY_DICT, 20),
+  (DUMMY_DICT, 3),
 ]
 
 
@@ -36,9 +44,9 @@ def test_trigram(trigram_key, trigram_value):
     assert trigram(trigram_key) == trigram_value
 
 
-@pytest.mark.parametrize('input_text, length', LENGTH)
-def test_trigram_length(input_text, length):
-    from trigrams import main
-    result_text = main(input_text, length)
+@pytest.mark.parametrize('input_dict, length', LENGTH)
+def test_trigram_length(input_dict, length):
+    from trigrams import make_trigrams
+    result_text = make_trigrams(input_dict, length)
     result_list = result_text.split(' ')
     assert len(result_list) == length
