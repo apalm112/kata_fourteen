@@ -52,13 +52,13 @@ def make_trigrams(trigram_dict, length):
 
 
 if __name__ == '__main__':
-    if len(sys.arv) != 3:
+    if len(sys.argv) == 3:
+        text_file = sys.argv[1]
+        length = int(sys.argv[2])
+        if length >= 3:
+            new_text = main(text_file, length)
+            print(new_text)
+        else:
+            print('Given length argument must be 3 or larger.')
+    else:
         print('Bad arguments given.')
-        return
-    text_file = sys.argv[1]
-    length = int(sys.argv[2])
-    if length < 3:
-        print('Given length argument must be 3 or larger.')
-        return
-    new_text = main(text_file, length)
-    print(new_text)
