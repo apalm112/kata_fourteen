@@ -1,4 +1,4 @@
-"""This module runs tests on the trigrams functions."""
+"""This module tests functions from trigrams.py."""
 
 import pytest
 
@@ -15,8 +15,11 @@ TRIGRAM = [
         'I wish': ['I', 'I'],
         'wish I': ['may', 'might'],
         'may I': ['wish'],
-        'I may': ['I']}
-     )
+        'I may': ['I']}),
+    ('a a a', {'a a': ['a']}),
+    ('a a', {}),
+    ('a', {}),
+    ('', {})
 ]
 
 
@@ -47,14 +50,14 @@ def test_input(file_in, out):
 @pytest.mark.parametrize('trigram_key, trigram_value', TRIGRAM)
 def test_trigram(trigram_key, trigram_value):
     """"Test trigram function to ensure correct dictionary output."""
-    from trigrams import trigram
-    assert trigram(trigram_key) == trigram_value
+    from trigrams import make_trigrams
+    assert make_trigrams(trigram_key) == trigram_value
 
 
 @pytest.mark.parametrize('input_dict, length', LENGTH)
 def test_trigram_length(input_dict, length):
-    """Test make_trigrams function to ensure correct length of output."""
-    from trigrams import make_trigrams
-    result_text = make_trigrams(input_dict, length)
+    """Test make_new_text function to ensure correct length of output."""
+    from trigrams import make_new_text
+    result_text = make_new_text(input_dict, length)
     result_list = result_text.split(' ')
     assert len(result_list) == length
