@@ -9,58 +9,59 @@ import random
 def main(text_file, length):
     """Return new text from given text file and length parameter."""
     text = trigrams_input(text_file)
-    trigram_dict = trigram(text)
-    new_text = make_trigrams(trigram_dict, length)
+    trigram_dict = make_trigrams(text)
+    new_text = make_new_text(trigram_dict, length)
     return new_text
 
 
-def trigrams_input(input_file):
+def trigrams_input(file_path):
     """Function to input and read file."""
-    sherlock = io.open(input_file)
-    sherlock_text = sherlock.read()
-    sherlock.close()
-    return sherlock_text
+    text_file = io.open(file_path)
+    text = text_file.read()
+    text_file.close()
+    return text
 
 
-def trigram(sherlock_string):
+def make_trigrams(text):
     """Return dictionary of trigrams from given long string."""
-    sherlock_list = sherlock_string.split()
+    words = text.split()
     trigram_dict = {}
 
-    for index, current_word in enumerate(sherlock_list[:-1]):
-        if index == 0:
+    for index, word in enumerate(words):
+        if index < 2:
             continue
-        previous_word = sherlock_list[index - 1]
-        trigram_key = ' '.join([previous_word, current_word])
+        trigram_key = ' '.join(words[index - 2:index])
         word_list = trigram_dict.setdefault(trigram_key, [])
-        next_word = sherlock_list[index + 1]
-        word_list.append(next_word)
+        word_list.append(word)
 
     return trigram_dict
 
 
-def make_trigrams(trigram_dict, length):
+def make_new_text(trigram_dict, length):
     """Return a long string of new text assembled by trigrams."""
     key = random.choice(list(trigram_dict.keys()))
-    output_list = key.split(' ')
-    while len(output_list) < length:
-        last_two = ' '.join([output_list[-2], output_list[-1]])
+    output_words = key.split(' ')
+
+    while len(output_words) < length:
+        last_two = ' '.join(output_words[-2:])
         if last_two not in trigram_dict:
             last_two = random.choice(list(trigram_dict.keys()))
         new_word = random.choice(trigram_dict[last_two])
-        output_list.append(new_word)
+        output_words.append(new_word)
 
-    return ' '.join(output_list)
+    return ' '.join(output_words)
 
 
 if __name__ == '__main__':
-    if len(sys.argv) == 3:
+    try:
         text_file = sys.argv[1]
         length = int(sys.argv[2])
-        if length >= 3:
+        if length < 3:
+            raise ValueError('Output length must be at least 3.')
+        else:
             new_text = main(text_file, length)
             print(new_text)
-        else:
-            print('Given length argument must be 3 or larger.')
-    else:
-        print('Bad arguments given.')
+
+    except IndexError:
+        print('Too few arguments given. Correct usage:\n'
+              '> python trigrams.py <filename> <length>')
