@@ -2,12 +2,34 @@
 
 import pytest
 
+SHERLOCK_SMALL_FILENAME = 'sherlock_small.txt'
 
-TEXT = [('trigrams.txt',
+SHERLOCK_SMALL_TEXT = (
+    'One night--it was on the twentieth of March, 1888--I was\n'
+    'returning from a journey to a patient (for I had now returned to\n'
+    'civil practice), when my way led me through Baker Street. As I\n'
+    'passed the well-remembered door, which must always be associated\n'
+    'in my mind with my wooing, and with the dark incidents of the\n'
+    'Study in Scarlet, I was seized with a keen desire to see Holmes\n'
+    'again, and to know how he was employing his extraordinary powers.\n'
+    'His rooms were brilliantly lit, and, even as I looked up, I saw\n'
+    'his tall, spare figure pass twice in a dark silhouette against\n'
+    'the blind. He was pacing the room swiftly, eagerly, with his head\n'
+    'sunk upon his chest and his hands clasped behind him. To me, who\n'
+    'knew his every mood and habit, his attitude and manner told their\n'
+    'own story. He was at work again. He had risen out of his\n'
+    'drug-created dreams and was hot upon the scent of some new\n'
+    'problem. I rang the bell and was shown up to the chamber which\n'
+    'had formerly been in part my own.\n'
+)
+
+
+TEXT = [('simple_text.txt',
          ('This is a line of text\n'
           'This is a second text line\n'
-          'Here is a third text line.\n')
-         )]
+          'Here is a third text line.\n')),
+        (SHERLOCK_SMALL_FILENAME, SHERLOCK_SMALL_TEXT)
+        ]
 
 TRIGRAM = [
     ('I wish I', {'I wish': ['I']}),

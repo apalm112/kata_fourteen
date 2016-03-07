@@ -14,10 +14,12 @@ def main(text_file, length):
     return new_text
 
 
-def trigrams_input(input_file):
+def trigrams_input(file_path):
     """Function to input and read file."""
-    sherlock = io.open(input_file)
-    return sherlock.read()
+    text_file = io.open(file_path)
+    text = text_file.read()
+    text_file.close()
+    return text
 
 
 def make_trigrams(text):
